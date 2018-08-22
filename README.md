@@ -1,5 +1,5 @@
 # Zabbix-MongoDB
-clone from https://github.com/omni-lchen/zabbix-mongodb , update to surpport mongodb multi instances
+clone from https://github.com/omni-lchen/zabbix-mongodb , update to surpport multi mongodb instances
 ** require
 zabbix server version 3.0
 
