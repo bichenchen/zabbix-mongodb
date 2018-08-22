@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
 Date: 03/01/2017
 Author: Long Chen
@@ -11,19 +12,24 @@ from time import gmtime
 
 from pymongo import MongoClient, errors
 from sys import exit
+import urllib
+from sys import argv
 
 class MongoDB(object):
     """main script class"""
     # pylint: disable=too-many-instance-attributes
-    def __init__(self):
-        self.mongo_host = "127.0.0.1"
-        self.mongo_port = 27017
+    def __init__(self,**kwargs):
+        self.mongo_host = kwargs['mongo_host']
+        self.mongo_port = kwargs['mongo_port']
         self.mongo_db = ["admin", ]
-        self.mongo_user = None
-        self.mongo_password = None
+        self.mongo_user = kwargs['mongo_user']
+        # 转化密码中的特殊字符，如@
+        self.mongo_password = urllib.quote(kwargs['mongo_pwd'])
         self.__conn = None
         self.__dbnames = None
         self.__metrics = []
+    
+        print(kwargs)
 
     def connect(self):
         """Connect to MongoDB"""
@@ -237,7 +243,8 @@ class MongoDB(object):
             self.__conn.close()
 
 if __name__ == '__main__':
-    mongodb = MongoDB()
+    print "arg:{0}".format(argv)
+    mongodb = MongoDB(mongo_host=argv[1],mongo_port=argv[2],mongo_user=argv[3],mongo_pwd=argv[4])
     mongodb.get_db_names()
     mongodb.get_mongo_db_lld()
     mongodb.get_oplog()
@@ -246,3 +253,4 @@ if __name__ == '__main__':
     mongodb.get_db_stats_metrics()
     mongodb.print_metrics()
     mongodb.close()
+
