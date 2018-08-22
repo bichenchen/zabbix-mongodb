@@ -1,5 +1,8 @@
 # Zabbix-MongoDB
 
+** require
+zabbix server version 3.0
+
 **Installation**
 
 1. Import the mongodb template to zabbix and link it to the zabbix mongodb host.
