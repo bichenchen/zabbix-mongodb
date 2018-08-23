@@ -2,6 +2,7 @@
 
 import ConfigParser
 from sys import argv
+import commands
 
 conf=argv[1]
 
@@ -17,3 +18,4 @@ for section in sections:
     mongo_pwd = config.get(section, 'mongo_pwd')
     cmd="/bin/bash /usr/local/bin/mongodb-stats.sh {0} {1} {2} {3} {4}".format(mongo_host,mongo_port,mongo_user,mongo_pwd,section)
     #print(cmd)
+    commands.getstatusoutput(cmd)
